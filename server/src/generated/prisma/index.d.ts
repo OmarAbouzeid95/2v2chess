@@ -1149,16 +1149,19 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: number | null
+    uuid: string | null
     name: string | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: number | null
+    uuid: string | null
     name: string | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
+    uuid: number
     name: number
     _all: number
   }
@@ -1174,16 +1177,19 @@ export namespace Prisma {
 
   export type UserMinAggregateInputType = {
     id?: true
+    uuid?: true
     name?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
+    uuid?: true
     name?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
+    uuid?: true
     name?: true
     _all?: true
   }
@@ -1276,6 +1282,7 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: number
+    uuid: string
     name: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -1300,6 +1307,7 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    uuid?: boolean
     name?: boolean
     games?: boolean | User$gamesArgs<ExtArgs>
     moves?: boolean | User$movesArgs<ExtArgs>
@@ -1308,20 +1316,23 @@ export namespace Prisma {
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    uuid?: boolean
     name?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    uuid?: boolean
     name?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
+    uuid?: boolean
     name?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uuid" | "name", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     games?: boolean | User$gamesArgs<ExtArgs>
     moves?: boolean | User$movesArgs<ExtArgs>
@@ -1338,6 +1349,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      uuid: string
       name: string
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -1765,6 +1777,7 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'Int'>
+    readonly uuid: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
   }
     
@@ -4439,6 +4452,7 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
+    uuid: 'uuid',
     name: 'name'
   };
 
@@ -4534,6 +4548,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
+    uuid?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     games?: GameListRelationFilter
     moves?: MoveListRelationFilter
@@ -4541,6 +4556,7 @@ export namespace Prisma {
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
+    uuid?: SortOrder
     name?: SortOrder
     games?: GameOrderByRelationAggregateInput
     moves?: MoveOrderByRelationAggregateInput
@@ -4548,16 +4564,18 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    uuid?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     games?: GameListRelationFilter
     moves?: MoveListRelationFilter
-  }, "id">
+  }, "id" | "uuid">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
+    uuid?: SortOrder
     name?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -4571,6 +4589,7 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
+    uuid?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
   }
 
@@ -4675,6 +4694,7 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
+    uuid?: string
     name: string
     games?: GameCreateNestedManyWithoutUsersInput
     moves?: MoveCreateNestedManyWithoutUserInput
@@ -4682,12 +4702,14 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     id?: number
+    uuid?: string
     name: string
     games?: GameUncheckedCreateNestedManyWithoutUsersInput
     moves?: MoveUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     games?: GameUpdateManyWithoutUsersNestedInput
     moves?: MoveUpdateManyWithoutUserNestedInput
@@ -4695,6 +4717,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     games?: GameUncheckedUpdateManyWithoutUsersNestedInput
     moves?: MoveUncheckedUpdateManyWithoutUserNestedInput
@@ -4702,15 +4725,18 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     id?: number
+    uuid?: string
     name: string
   }
 
   export type UserUpdateManyMutationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
   }
 
@@ -4846,6 +4872,7 @@ export namespace Prisma {
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
+    uuid?: SortOrder
     name?: SortOrder
   }
 
@@ -4855,11 +4882,13 @@ export namespace Prisma {
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
+    uuid?: SortOrder
     name?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
+    uuid?: SortOrder
     name?: SortOrder
   }
 
@@ -5334,12 +5363,14 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutGamesInput = {
+    uuid?: string
     name: string
     moves?: MoveCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGamesInput = {
     id?: number
+    uuid?: string
     name: string
     moves?: MoveUncheckedCreateNestedManyWithoutUserInput
   }
@@ -5391,6 +5422,7 @@ export namespace Prisma {
     OR?: UserScalarWhereInput[]
     NOT?: UserScalarWhereInput | UserScalarWhereInput[]
     id?: IntFilter<"User"> | number
+    uuid?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
   }
 
@@ -5411,12 +5443,14 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutMovesInput = {
+    uuid?: string
     name: string
     games?: GameCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutMovesInput = {
     id?: number
+    uuid?: string
     name: string
     games?: GameUncheckedCreateNestedManyWithoutUsersInput
   }
@@ -5454,12 +5488,14 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutMovesInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     games?: GameUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMovesInput = {
     id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     games?: GameUncheckedUpdateManyWithoutUsersNestedInput
   }
@@ -5532,18 +5568,21 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutGamesInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     moves?: MoveUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGamesInput = {
     id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     moves?: MoveUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutGamesInput = {
     id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
   }
 

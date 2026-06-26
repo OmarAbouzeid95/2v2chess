@@ -10,6 +10,7 @@ datasource db {
 
 model User {
   id    Int    @id @default(autoincrement())
+  uuid  String @unique @default(uuid())
   name  String
   games Game[]
   moves Move[]
