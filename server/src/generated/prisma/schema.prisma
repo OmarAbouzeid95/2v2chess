@@ -12,10 +12,21 @@ model User {
   id    Int    @id @default(autoincrement())
   name  String
   games Game[]
+  moves Move[]
 }
 
 model Game {
   id    Int    @id @default(autoincrement())
   uuid  String @unique @default(uuid())
   users User[]
+  moves Move[]
+}
+
+model Move {
+  id     Int    @id @default(autoincrement())
+  uuid   String @unique @default(uuid())
+  userId Int    @map("user_id")
+  gameId Int    @map("game_id")
+  user   User   @relation(fields: [userId], references: [id])
+  game   Game   @relation(fields: [gameId], references: [id])
 }

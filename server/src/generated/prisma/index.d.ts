@@ -23,6 +23,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type Game = $Result.DefaultSelection<Prisma.$GamePayload>
+/**
+ * Model Move
+ * 
+ */
+export type Move = $Result.DefaultSelection<Prisma.$MovePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -164,6 +169,16 @@ export class PrismaClient<
     * ```
     */
   get game(): Prisma.GameDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.move`: Exposes CRUD operations for the **Move** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Moves
+    * const moves = await prisma.move.findMany()
+    * ```
+    */
+  get move(): Prisma.MoveDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -599,7 +614,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Game: 'Game'
+    Game: 'Game',
+    Move: 'Move'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -615,7 +631,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "game"
+      modelProps: "user" | "game" | "move"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -767,6 +783,80 @@ export namespace Prisma {
           }
         }
       }
+      Move: {
+        payload: Prisma.$MovePayload<ExtArgs>
+        fields: Prisma.MoveFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MoveFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MoveFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload>
+          }
+          findFirst: {
+            args: Prisma.MoveFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MoveFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload>
+          }
+          findMany: {
+            args: Prisma.MoveFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload>[]
+          }
+          create: {
+            args: Prisma.MoveCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload>
+          }
+          createMany: {
+            args: Prisma.MoveCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MoveCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload>[]
+          }
+          delete: {
+            args: Prisma.MoveDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload>
+          }
+          update: {
+            args: Prisma.MoveUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload>
+          }
+          deleteMany: {
+            args: Prisma.MoveDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MoveUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MoveUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload>[]
+          }
+          upsert: {
+            args: Prisma.MoveUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovePayload>
+          }
+          aggregate: {
+            args: Prisma.MoveAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMove>
+          }
+          groupBy: {
+            args: Prisma.MoveGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MoveGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MoveCountArgs<ExtArgs>
+            result: $Utils.Optional<MoveCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -877,6 +967,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     game?: GameOmit
+    move?: MoveOmit
   }
 
   /* Types for Logging */
@@ -958,10 +1049,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     games: number
+    moves: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     games?: boolean | UserCountOutputTypeCountGamesArgs
+    moves?: boolean | UserCountOutputTypeCountMovesArgs
   }
 
   // Custom InputTypes
@@ -982,6 +1075,13 @@ export namespace Prisma {
     where?: GameWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMovesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MoveWhereInput
+  }
+
 
   /**
    * Count Type GameCountOutputType
@@ -989,10 +1089,12 @@ export namespace Prisma {
 
   export type GameCountOutputType = {
     users: number
+    moves: number
   }
 
   export type GameCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | GameCountOutputTypeCountUsersArgs
+    moves?: boolean | GameCountOutputTypeCountMovesArgs
   }
 
   // Custom InputTypes
@@ -1011,6 +1113,13 @@ export namespace Prisma {
    */
   export type GameCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
+  }
+
+  /**
+   * GameCountOutputType without action
+   */
+  export type GameCountOutputTypeCountMovesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MoveWhereInput
   }
 
 
@@ -1193,6 +1302,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     games?: boolean | User$gamesArgs<ExtArgs>
+    moves?: boolean | User$movesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1214,6 +1324,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     games?: boolean | User$gamesArgs<ExtArgs>
+    moves?: boolean | User$movesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1223,6 +1334,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       games: Prisma.$GamePayload<ExtArgs>[]
+      moves: Prisma.$MovePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1622,6 +1734,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     games<T extends User$gamesArgs<ExtArgs> = {}>(args?: Subset<T, User$gamesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    moves<T extends User$movesArgs<ExtArgs> = {}>(args?: Subset<T, User$movesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2070,6 +2183,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.moves
+   */
+  export type User$movesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    where?: MoveWhereInput
+    orderBy?: MoveOrderByWithRelationInput | MoveOrderByWithRelationInput[]
+    cursor?: MoveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MoveScalarFieldEnum | MoveScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2263,6 +2400,7 @@ export namespace Prisma {
     id?: boolean
     uuid?: boolean
     users?: boolean | Game$usersArgs<ExtArgs>
+    moves?: boolean | Game$movesArgs<ExtArgs>
     _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["game"]>
 
@@ -2284,6 +2422,7 @@ export namespace Prisma {
   export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uuid", ExtArgs["result"]["game"]>
   export type GameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Game$usersArgs<ExtArgs>
+    moves?: boolean | Game$movesArgs<ExtArgs>
     _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GameIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2293,6 +2432,7 @@ export namespace Prisma {
     name: "Game"
     objects: {
       users: Prisma.$UserPayload<ExtArgs>[]
+      moves: Prisma.$MovePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2692,6 +2832,7 @@ export namespace Prisma {
   export interface Prisma__GameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     users<T extends Game$usersArgs<ExtArgs> = {}>(args?: Subset<T, Game$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    moves<T extends Game$movesArgs<ExtArgs> = {}>(args?: Subset<T, Game$movesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3140,6 +3281,30 @@ export namespace Prisma {
   }
 
   /**
+   * Game.moves
+   */
+  export type Game$movesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    where?: MoveWhereInput
+    orderBy?: MoveOrderByWithRelationInput | MoveOrderByWithRelationInput[]
+    cursor?: MoveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MoveScalarFieldEnum | MoveScalarFieldEnum[]
+  }
+
+  /**
    * Game without action
    */
   export type GameDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3155,6 +3320,1106 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: GameInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Move
+   */
+
+  export type AggregateMove = {
+    _count: MoveCountAggregateOutputType | null
+    _avg: MoveAvgAggregateOutputType | null
+    _sum: MoveSumAggregateOutputType | null
+    _min: MoveMinAggregateOutputType | null
+    _max: MoveMaxAggregateOutputType | null
+  }
+
+  export type MoveAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    gameId: number | null
+  }
+
+  export type MoveSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    gameId: number | null
+  }
+
+  export type MoveMinAggregateOutputType = {
+    id: number | null
+    uuid: string | null
+    userId: number | null
+    gameId: number | null
+  }
+
+  export type MoveMaxAggregateOutputType = {
+    id: number | null
+    uuid: string | null
+    userId: number | null
+    gameId: number | null
+  }
+
+  export type MoveCountAggregateOutputType = {
+    id: number
+    uuid: number
+    userId: number
+    gameId: number
+    _all: number
+  }
+
+
+  export type MoveAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    gameId?: true
+  }
+
+  export type MoveSumAggregateInputType = {
+    id?: true
+    userId?: true
+    gameId?: true
+  }
+
+  export type MoveMinAggregateInputType = {
+    id?: true
+    uuid?: true
+    userId?: true
+    gameId?: true
+  }
+
+  export type MoveMaxAggregateInputType = {
+    id?: true
+    uuid?: true
+    userId?: true
+    gameId?: true
+  }
+
+  export type MoveCountAggregateInputType = {
+    id?: true
+    uuid?: true
+    userId?: true
+    gameId?: true
+    _all?: true
+  }
+
+  export type MoveAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Move to aggregate.
+     */
+    where?: MoveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Moves to fetch.
+     */
+    orderBy?: MoveOrderByWithRelationInput | MoveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MoveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Moves from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Moves.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Moves
+    **/
+    _count?: true | MoveCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MoveAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MoveSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MoveMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MoveMaxAggregateInputType
+  }
+
+  export type GetMoveAggregateType<T extends MoveAggregateArgs> = {
+        [P in keyof T & keyof AggregateMove]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMove[P]>
+      : GetScalarType<T[P], AggregateMove[P]>
+  }
+
+
+
+
+  export type MoveGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MoveWhereInput
+    orderBy?: MoveOrderByWithAggregationInput | MoveOrderByWithAggregationInput[]
+    by: MoveScalarFieldEnum[] | MoveScalarFieldEnum
+    having?: MoveScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MoveCountAggregateInputType | true
+    _avg?: MoveAvgAggregateInputType
+    _sum?: MoveSumAggregateInputType
+    _min?: MoveMinAggregateInputType
+    _max?: MoveMaxAggregateInputType
+  }
+
+  export type MoveGroupByOutputType = {
+    id: number
+    uuid: string
+    userId: number
+    gameId: number
+    _count: MoveCountAggregateOutputType | null
+    _avg: MoveAvgAggregateOutputType | null
+    _sum: MoveSumAggregateOutputType | null
+    _min: MoveMinAggregateOutputType | null
+    _max: MoveMaxAggregateOutputType | null
+  }
+
+  type GetMoveGroupByPayload<T extends MoveGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MoveGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MoveGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MoveGroupByOutputType[P]>
+            : GetScalarType<T[P], MoveGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MoveSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uuid?: boolean
+    userId?: boolean
+    gameId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["move"]>
+
+  export type MoveSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uuid?: boolean
+    userId?: boolean
+    gameId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["move"]>
+
+  export type MoveSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uuid?: boolean
+    userId?: boolean
+    gameId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["move"]>
+
+  export type MoveSelectScalar = {
+    id?: boolean
+    uuid?: boolean
+    userId?: boolean
+    gameId?: boolean
+  }
+
+  export type MoveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uuid" | "userId" | "gameId", ExtArgs["result"]["move"]>
+  export type MoveInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }
+  export type MoveIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }
+  export type MoveIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }
+
+  export type $MovePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Move"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      game: Prisma.$GamePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      uuid: string
+      userId: number
+      gameId: number
+    }, ExtArgs["result"]["move"]>
+    composites: {}
+  }
+
+  type MoveGetPayload<S extends boolean | null | undefined | MoveDefaultArgs> = $Result.GetResult<Prisma.$MovePayload, S>
+
+  type MoveCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MoveFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MoveCountAggregateInputType | true
+    }
+
+  export interface MoveDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Move'], meta: { name: 'Move' } }
+    /**
+     * Find zero or one Move that matches the filter.
+     * @param {MoveFindUniqueArgs} args - Arguments to find a Move
+     * @example
+     * // Get one Move
+     * const move = await prisma.move.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MoveFindUniqueArgs>(args: SelectSubset<T, MoveFindUniqueArgs<ExtArgs>>): Prisma__MoveClient<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Move that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MoveFindUniqueOrThrowArgs} args - Arguments to find a Move
+     * @example
+     * // Get one Move
+     * const move = await prisma.move.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MoveFindUniqueOrThrowArgs>(args: SelectSubset<T, MoveFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MoveClient<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Move that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveFindFirstArgs} args - Arguments to find a Move
+     * @example
+     * // Get one Move
+     * const move = await prisma.move.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MoveFindFirstArgs>(args?: SelectSubset<T, MoveFindFirstArgs<ExtArgs>>): Prisma__MoveClient<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Move that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveFindFirstOrThrowArgs} args - Arguments to find a Move
+     * @example
+     * // Get one Move
+     * const move = await prisma.move.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MoveFindFirstOrThrowArgs>(args?: SelectSubset<T, MoveFindFirstOrThrowArgs<ExtArgs>>): Prisma__MoveClient<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Moves that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Moves
+     * const moves = await prisma.move.findMany()
+     * 
+     * // Get first 10 Moves
+     * const moves = await prisma.move.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const moveWithIdOnly = await prisma.move.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MoveFindManyArgs>(args?: SelectSubset<T, MoveFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Move.
+     * @param {MoveCreateArgs} args - Arguments to create a Move.
+     * @example
+     * // Create one Move
+     * const Move = await prisma.move.create({
+     *   data: {
+     *     // ... data to create a Move
+     *   }
+     * })
+     * 
+     */
+    create<T extends MoveCreateArgs>(args: SelectSubset<T, MoveCreateArgs<ExtArgs>>): Prisma__MoveClient<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Moves.
+     * @param {MoveCreateManyArgs} args - Arguments to create many Moves.
+     * @example
+     * // Create many Moves
+     * const move = await prisma.move.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MoveCreateManyArgs>(args?: SelectSubset<T, MoveCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Moves and returns the data saved in the database.
+     * @param {MoveCreateManyAndReturnArgs} args - Arguments to create many Moves.
+     * @example
+     * // Create many Moves
+     * const move = await prisma.move.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Moves and only return the `id`
+     * const moveWithIdOnly = await prisma.move.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MoveCreateManyAndReturnArgs>(args?: SelectSubset<T, MoveCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Move.
+     * @param {MoveDeleteArgs} args - Arguments to delete one Move.
+     * @example
+     * // Delete one Move
+     * const Move = await prisma.move.delete({
+     *   where: {
+     *     // ... filter to delete one Move
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MoveDeleteArgs>(args: SelectSubset<T, MoveDeleteArgs<ExtArgs>>): Prisma__MoveClient<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Move.
+     * @param {MoveUpdateArgs} args - Arguments to update one Move.
+     * @example
+     * // Update one Move
+     * const move = await prisma.move.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MoveUpdateArgs>(args: SelectSubset<T, MoveUpdateArgs<ExtArgs>>): Prisma__MoveClient<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Moves.
+     * @param {MoveDeleteManyArgs} args - Arguments to filter Moves to delete.
+     * @example
+     * // Delete a few Moves
+     * const { count } = await prisma.move.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MoveDeleteManyArgs>(args?: SelectSubset<T, MoveDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Moves.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Moves
+     * const move = await prisma.move.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MoveUpdateManyArgs>(args: SelectSubset<T, MoveUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Moves and returns the data updated in the database.
+     * @param {MoveUpdateManyAndReturnArgs} args - Arguments to update many Moves.
+     * @example
+     * // Update many Moves
+     * const move = await prisma.move.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Moves and only return the `id`
+     * const moveWithIdOnly = await prisma.move.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MoveUpdateManyAndReturnArgs>(args: SelectSubset<T, MoveUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Move.
+     * @param {MoveUpsertArgs} args - Arguments to update or create a Move.
+     * @example
+     * // Update or create a Move
+     * const move = await prisma.move.upsert({
+     *   create: {
+     *     // ... data to create a Move
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Move we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MoveUpsertArgs>(args: SelectSubset<T, MoveUpsertArgs<ExtArgs>>): Prisma__MoveClient<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Moves.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveCountArgs} args - Arguments to filter Moves to count.
+     * @example
+     * // Count the number of Moves
+     * const count = await prisma.move.count({
+     *   where: {
+     *     // ... the filter for the Moves we want to count
+     *   }
+     * })
+    **/
+    count<T extends MoveCountArgs>(
+      args?: Subset<T, MoveCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MoveCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Move.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MoveAggregateArgs>(args: Subset<T, MoveAggregateArgs>): Prisma.PrismaPromise<GetMoveAggregateType<T>>
+
+    /**
+     * Group by Move.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MoveGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MoveGroupByArgs['orderBy'] }
+        : { orderBy?: MoveGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MoveGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMoveGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Move model
+   */
+  readonly fields: MoveFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Move.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MoveClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    game<T extends GameDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameDefaultArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Move model
+   */
+  interface MoveFieldRefs {
+    readonly id: FieldRef<"Move", 'Int'>
+    readonly uuid: FieldRef<"Move", 'String'>
+    readonly userId: FieldRef<"Move", 'Int'>
+    readonly gameId: FieldRef<"Move", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Move findUnique
+   */
+  export type MoveFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    /**
+     * Filter, which Move to fetch.
+     */
+    where: MoveWhereUniqueInput
+  }
+
+  /**
+   * Move findUniqueOrThrow
+   */
+  export type MoveFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    /**
+     * Filter, which Move to fetch.
+     */
+    where: MoveWhereUniqueInput
+  }
+
+  /**
+   * Move findFirst
+   */
+  export type MoveFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    /**
+     * Filter, which Move to fetch.
+     */
+    where?: MoveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Moves to fetch.
+     */
+    orderBy?: MoveOrderByWithRelationInput | MoveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Moves.
+     */
+    cursor?: MoveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Moves from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Moves.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Moves.
+     */
+    distinct?: MoveScalarFieldEnum | MoveScalarFieldEnum[]
+  }
+
+  /**
+   * Move findFirstOrThrow
+   */
+  export type MoveFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    /**
+     * Filter, which Move to fetch.
+     */
+    where?: MoveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Moves to fetch.
+     */
+    orderBy?: MoveOrderByWithRelationInput | MoveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Moves.
+     */
+    cursor?: MoveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Moves from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Moves.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Moves.
+     */
+    distinct?: MoveScalarFieldEnum | MoveScalarFieldEnum[]
+  }
+
+  /**
+   * Move findMany
+   */
+  export type MoveFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    /**
+     * Filter, which Moves to fetch.
+     */
+    where?: MoveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Moves to fetch.
+     */
+    orderBy?: MoveOrderByWithRelationInput | MoveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Moves.
+     */
+    cursor?: MoveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Moves from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Moves.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Moves.
+     */
+    distinct?: MoveScalarFieldEnum | MoveScalarFieldEnum[]
+  }
+
+  /**
+   * Move create
+   */
+  export type MoveCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Move.
+     */
+    data: XOR<MoveCreateInput, MoveUncheckedCreateInput>
+  }
+
+  /**
+   * Move createMany
+   */
+  export type MoveCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Moves.
+     */
+    data: MoveCreateManyInput | MoveCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Move createManyAndReturn
+   */
+  export type MoveCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * The data used to create many Moves.
+     */
+    data: MoveCreateManyInput | MoveCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Move update
+   */
+  export type MoveUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Move.
+     */
+    data: XOR<MoveUpdateInput, MoveUncheckedUpdateInput>
+    /**
+     * Choose, which Move to update.
+     */
+    where: MoveWhereUniqueInput
+  }
+
+  /**
+   * Move updateMany
+   */
+  export type MoveUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Moves.
+     */
+    data: XOR<MoveUpdateManyMutationInput, MoveUncheckedUpdateManyInput>
+    /**
+     * Filter which Moves to update
+     */
+    where?: MoveWhereInput
+    /**
+     * Limit how many Moves to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Move updateManyAndReturn
+   */
+  export type MoveUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * The data used to update Moves.
+     */
+    data: XOR<MoveUpdateManyMutationInput, MoveUncheckedUpdateManyInput>
+    /**
+     * Filter which Moves to update
+     */
+    where?: MoveWhereInput
+    /**
+     * Limit how many Moves to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Move upsert
+   */
+  export type MoveUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Move to update in case it exists.
+     */
+    where: MoveWhereUniqueInput
+    /**
+     * In case the Move found by the `where` argument doesn't exist, create a new Move with this data.
+     */
+    create: XOR<MoveCreateInput, MoveUncheckedCreateInput>
+    /**
+     * In case the Move was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MoveUpdateInput, MoveUncheckedUpdateInput>
+  }
+
+  /**
+   * Move delete
+   */
+  export type MoveDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
+    /**
+     * Filter which Move to delete.
+     */
+    where: MoveWhereUniqueInput
+  }
+
+  /**
+   * Move deleteMany
+   */
+  export type MoveDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Moves to delete
+     */
+    where?: MoveWhereInput
+    /**
+     * Limit how many Moves to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Move without action
+   */
+  export type MoveDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Move
+     */
+    select?: MoveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Move
+     */
+    omit?: MoveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoveInclude<ExtArgs> | null
   }
 
 
@@ -3186,6 +4451,16 @@ export namespace Prisma {
   };
 
   export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
+
+
+  export const MoveScalarFieldEnum: {
+    id: 'id',
+    uuid: 'uuid',
+    userId: 'userId',
+    gameId: 'gameId'
+  };
+
+  export type MoveScalarFieldEnum = (typeof MoveScalarFieldEnum)[keyof typeof MoveScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3261,12 +4536,14 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     name?: StringFilter<"User"> | string
     games?: GameListRelationFilter
+    moves?: MoveListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     games?: GameOrderByRelationAggregateInput
+    moves?: MoveOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3276,6 +4553,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     games?: GameListRelationFilter
+    moves?: MoveListRelationFilter
   }, "id">
 
   export type UserOrderByWithAggregationInput = {
@@ -3303,12 +4581,14 @@ export namespace Prisma {
     id?: IntFilter<"Game"> | number
     uuid?: StringFilter<"Game"> | string
     users?: UserListRelationFilter
+    moves?: MoveListRelationFilter
   }
 
   export type GameOrderByWithRelationInput = {
     id?: SortOrder
     uuid?: SortOrder
     users?: UserOrderByRelationAggregateInput
+    moves?: MoveOrderByRelationAggregateInput
   }
 
   export type GameWhereUniqueInput = Prisma.AtLeast<{
@@ -3318,6 +4598,7 @@ export namespace Prisma {
     OR?: GameWhereInput[]
     NOT?: GameWhereInput | GameWhereInput[]
     users?: UserListRelationFilter
+    moves?: MoveListRelationFilter
   }, "id" | "uuid">
 
   export type GameOrderByWithAggregationInput = {
@@ -3338,26 +4619,85 @@ export namespace Prisma {
     uuid?: StringWithAggregatesFilter<"Game"> | string
   }
 
+  export type MoveWhereInput = {
+    AND?: MoveWhereInput | MoveWhereInput[]
+    OR?: MoveWhereInput[]
+    NOT?: MoveWhereInput | MoveWhereInput[]
+    id?: IntFilter<"Move"> | number
+    uuid?: StringFilter<"Move"> | string
+    userId?: IntFilter<"Move"> | number
+    gameId?: IntFilter<"Move"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    game?: XOR<GameScalarRelationFilter, GameWhereInput>
+  }
+
+  export type MoveOrderByWithRelationInput = {
+    id?: SortOrder
+    uuid?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    user?: UserOrderByWithRelationInput
+    game?: GameOrderByWithRelationInput
+  }
+
+  export type MoveWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    uuid?: string
+    AND?: MoveWhereInput | MoveWhereInput[]
+    OR?: MoveWhereInput[]
+    NOT?: MoveWhereInput | MoveWhereInput[]
+    userId?: IntFilter<"Move"> | number
+    gameId?: IntFilter<"Move"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    game?: XOR<GameScalarRelationFilter, GameWhereInput>
+  }, "id" | "uuid">
+
+  export type MoveOrderByWithAggregationInput = {
+    id?: SortOrder
+    uuid?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    _count?: MoveCountOrderByAggregateInput
+    _avg?: MoveAvgOrderByAggregateInput
+    _max?: MoveMaxOrderByAggregateInput
+    _min?: MoveMinOrderByAggregateInput
+    _sum?: MoveSumOrderByAggregateInput
+  }
+
+  export type MoveScalarWhereWithAggregatesInput = {
+    AND?: MoveScalarWhereWithAggregatesInput | MoveScalarWhereWithAggregatesInput[]
+    OR?: MoveScalarWhereWithAggregatesInput[]
+    NOT?: MoveScalarWhereWithAggregatesInput | MoveScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Move"> | number
+    uuid?: StringWithAggregatesFilter<"Move"> | string
+    userId?: IntWithAggregatesFilter<"Move"> | number
+    gameId?: IntWithAggregatesFilter<"Move"> | number
+  }
+
   export type UserCreateInput = {
     name: string
     games?: GameCreateNestedManyWithoutUsersInput
+    moves?: MoveCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: number
     name: string
     games?: GameUncheckedCreateNestedManyWithoutUsersInput
+    moves?: MoveUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     games?: GameUpdateManyWithoutUsersNestedInput
+    moves?: MoveUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     games?: GameUncheckedUpdateManyWithoutUsersNestedInput
+    moves?: MoveUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3377,23 +4717,27 @@ export namespace Prisma {
   export type GameCreateInput = {
     uuid?: string
     users?: UserCreateNestedManyWithoutGamesInput
+    moves?: MoveCreateNestedManyWithoutGameInput
   }
 
   export type GameUncheckedCreateInput = {
     id?: number
     uuid?: string
     users?: UserUncheckedCreateNestedManyWithoutGamesInput
+    moves?: MoveUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GameUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     users?: UserUpdateManyWithoutGamesNestedInput
+    moves?: MoveUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     users?: UserUncheckedUpdateManyWithoutGamesNestedInput
+    moves?: MoveUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type GameCreateManyInput = {
@@ -3408,6 +4752,50 @@ export namespace Prisma {
   export type GameUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MoveCreateInput = {
+    uuid?: string
+    user: UserCreateNestedOneWithoutMovesInput
+    game: GameCreateNestedOneWithoutMovesInput
+  }
+
+  export type MoveUncheckedCreateInput = {
+    id?: number
+    uuid?: string
+    userId: number
+    gameId: number
+  }
+
+  export type MoveUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutMovesNestedInput
+    game?: GameUpdateOneRequiredWithoutMovesNestedInput
+  }
+
+  export type MoveUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
+    gameId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MoveCreateManyInput = {
+    id?: number
+    uuid?: string
+    userId: number
+    gameId: number
+  }
+
+  export type MoveUpdateManyMutationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MoveUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
+    gameId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -3442,7 +4830,17 @@ export namespace Prisma {
     none?: GameWhereInput
   }
 
+  export type MoveListRelationFilter = {
+    every?: MoveWhereInput
+    some?: MoveWhereInput
+    none?: MoveWhereInput
+  }
+
   export type GameOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MoveOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3536,16 +4934,73 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type GameScalarRelationFilter = {
+    is?: GameWhereInput
+    isNot?: GameWhereInput
+  }
+
+  export type MoveCountOrderByAggregateInput = {
+    id?: SortOrder
+    uuid?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+  }
+
+  export type MoveAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+  }
+
+  export type MoveMaxOrderByAggregateInput = {
+    id?: SortOrder
+    uuid?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+  }
+
+  export type MoveMinOrderByAggregateInput = {
+    id?: SortOrder
+    uuid?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+  }
+
+  export type MoveSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+  }
+
   export type GameCreateNestedManyWithoutUsersInput = {
     create?: XOR<GameCreateWithoutUsersInput, GameUncheckedCreateWithoutUsersInput> | GameCreateWithoutUsersInput[] | GameUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: GameCreateOrConnectWithoutUsersInput | GameCreateOrConnectWithoutUsersInput[]
     connect?: GameWhereUniqueInput | GameWhereUniqueInput[]
   }
 
+  export type MoveCreateNestedManyWithoutUserInput = {
+    create?: XOR<MoveCreateWithoutUserInput, MoveUncheckedCreateWithoutUserInput> | MoveCreateWithoutUserInput[] | MoveUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MoveCreateOrConnectWithoutUserInput | MoveCreateOrConnectWithoutUserInput[]
+    createMany?: MoveCreateManyUserInputEnvelope
+    connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+  }
+
   export type GameUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<GameCreateWithoutUsersInput, GameUncheckedCreateWithoutUsersInput> | GameCreateWithoutUsersInput[] | GameUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: GameCreateOrConnectWithoutUsersInput | GameCreateOrConnectWithoutUsersInput[]
     connect?: GameWhereUniqueInput | GameWhereUniqueInput[]
+  }
+
+  export type MoveUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MoveCreateWithoutUserInput, MoveUncheckedCreateWithoutUserInput> | MoveCreateWithoutUserInput[] | MoveUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MoveCreateOrConnectWithoutUserInput | MoveCreateOrConnectWithoutUserInput[]
+    createMany?: MoveCreateManyUserInputEnvelope
+    connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3563,6 +5018,20 @@ export namespace Prisma {
     update?: GameUpdateWithWhereUniqueWithoutUsersInput | GameUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: GameUpdateManyWithWhereWithoutUsersInput | GameUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: GameScalarWhereInput | GameScalarWhereInput[]
+  }
+
+  export type MoveUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MoveCreateWithoutUserInput, MoveUncheckedCreateWithoutUserInput> | MoveCreateWithoutUserInput[] | MoveUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MoveCreateOrConnectWithoutUserInput | MoveCreateOrConnectWithoutUserInput[]
+    upsert?: MoveUpsertWithWhereUniqueWithoutUserInput | MoveUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MoveCreateManyUserInputEnvelope
+    set?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    disconnect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    delete?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    update?: MoveUpdateWithWhereUniqueWithoutUserInput | MoveUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MoveUpdateManyWithWhereWithoutUserInput | MoveUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MoveScalarWhereInput | MoveScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -3586,16 +5055,44 @@ export namespace Prisma {
     deleteMany?: GameScalarWhereInput | GameScalarWhereInput[]
   }
 
+  export type MoveUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MoveCreateWithoutUserInput, MoveUncheckedCreateWithoutUserInput> | MoveCreateWithoutUserInput[] | MoveUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MoveCreateOrConnectWithoutUserInput | MoveCreateOrConnectWithoutUserInput[]
+    upsert?: MoveUpsertWithWhereUniqueWithoutUserInput | MoveUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MoveCreateManyUserInputEnvelope
+    set?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    disconnect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    delete?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    update?: MoveUpdateWithWhereUniqueWithoutUserInput | MoveUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MoveUpdateManyWithWhereWithoutUserInput | MoveUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MoveScalarWhereInput | MoveScalarWhereInput[]
+  }
+
   export type UserCreateNestedManyWithoutGamesInput = {
     create?: XOR<UserCreateWithoutGamesInput, UserUncheckedCreateWithoutGamesInput> | UserCreateWithoutGamesInput[] | UserUncheckedCreateWithoutGamesInput[]
     connectOrCreate?: UserCreateOrConnectWithoutGamesInput | UserCreateOrConnectWithoutGamesInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type MoveCreateNestedManyWithoutGameInput = {
+    create?: XOR<MoveCreateWithoutGameInput, MoveUncheckedCreateWithoutGameInput> | MoveCreateWithoutGameInput[] | MoveUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: MoveCreateOrConnectWithoutGameInput | MoveCreateOrConnectWithoutGameInput[]
+    createMany?: MoveCreateManyGameInputEnvelope
+    connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutGamesInput = {
     create?: XOR<UserCreateWithoutGamesInput, UserUncheckedCreateWithoutGamesInput> | UserCreateWithoutGamesInput[] | UserUncheckedCreateWithoutGamesInput[]
     connectOrCreate?: UserCreateOrConnectWithoutGamesInput | UserCreateOrConnectWithoutGamesInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type MoveUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<MoveCreateWithoutGameInput, MoveUncheckedCreateWithoutGameInput> | MoveCreateWithoutGameInput[] | MoveUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: MoveCreateOrConnectWithoutGameInput | MoveCreateOrConnectWithoutGameInput[]
+    createMany?: MoveCreateManyGameInputEnvelope
+    connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
   }
 
   export type UserUpdateManyWithoutGamesNestedInput = {
@@ -3611,6 +5108,20 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type MoveUpdateManyWithoutGameNestedInput = {
+    create?: XOR<MoveCreateWithoutGameInput, MoveUncheckedCreateWithoutGameInput> | MoveCreateWithoutGameInput[] | MoveUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: MoveCreateOrConnectWithoutGameInput | MoveCreateOrConnectWithoutGameInput[]
+    upsert?: MoveUpsertWithWhereUniqueWithoutGameInput | MoveUpsertWithWhereUniqueWithoutGameInput[]
+    createMany?: MoveCreateManyGameInputEnvelope
+    set?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    disconnect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    delete?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    update?: MoveUpdateWithWhereUniqueWithoutGameInput | MoveUpdateWithWhereUniqueWithoutGameInput[]
+    updateMany?: MoveUpdateManyWithWhereWithoutGameInput | MoveUpdateManyWithWhereWithoutGameInput[]
+    deleteMany?: MoveScalarWhereInput | MoveScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutGamesNestedInput = {
     create?: XOR<UserCreateWithoutGamesInput, UserUncheckedCreateWithoutGamesInput> | UserCreateWithoutGamesInput[] | UserUncheckedCreateWithoutGamesInput[]
     connectOrCreate?: UserCreateOrConnectWithoutGamesInput | UserCreateOrConnectWithoutGamesInput[]
@@ -3622,6 +5133,48 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutGamesInput | UserUpdateWithWhereUniqueWithoutGamesInput[]
     updateMany?: UserUpdateManyWithWhereWithoutGamesInput | UserUpdateManyWithWhereWithoutGamesInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type MoveUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<MoveCreateWithoutGameInput, MoveUncheckedCreateWithoutGameInput> | MoveCreateWithoutGameInput[] | MoveUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: MoveCreateOrConnectWithoutGameInput | MoveCreateOrConnectWithoutGameInput[]
+    upsert?: MoveUpsertWithWhereUniqueWithoutGameInput | MoveUpsertWithWhereUniqueWithoutGameInput[]
+    createMany?: MoveCreateManyGameInputEnvelope
+    set?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    disconnect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    delete?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+    update?: MoveUpdateWithWhereUniqueWithoutGameInput | MoveUpdateWithWhereUniqueWithoutGameInput[]
+    updateMany?: MoveUpdateManyWithWhereWithoutGameInput | MoveUpdateManyWithWhereWithoutGameInput[]
+    deleteMany?: MoveScalarWhereInput | MoveScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutMovesInput = {
+    create?: XOR<UserCreateWithoutMovesInput, UserUncheckedCreateWithoutMovesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMovesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type GameCreateNestedOneWithoutMovesInput = {
+    create?: XOR<GameCreateWithoutMovesInput, GameUncheckedCreateWithoutMovesInput>
+    connectOrCreate?: GameCreateOrConnectWithoutMovesInput
+    connect?: GameWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMovesNestedInput = {
+    create?: XOR<UserCreateWithoutMovesInput, UserUncheckedCreateWithoutMovesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMovesInput
+    upsert?: UserUpsertWithoutMovesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMovesInput, UserUpdateWithoutMovesInput>, UserUncheckedUpdateWithoutMovesInput>
+  }
+
+  export type GameUpdateOneRequiredWithoutMovesNestedInput = {
+    create?: XOR<GameCreateWithoutMovesInput, GameUncheckedCreateWithoutMovesInput>
+    connectOrCreate?: GameCreateOrConnectWithoutMovesInput
+    upsert?: GameUpsertWithoutMovesInput
+    connect?: GameWhereUniqueInput
+    update?: XOR<XOR<GameUpdateToOneWithWhereWithoutMovesInput, GameUpdateWithoutMovesInput>, GameUncheckedUpdateWithoutMovesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -3695,16 +5248,39 @@ export namespace Prisma {
 
   export type GameCreateWithoutUsersInput = {
     uuid?: string
+    moves?: MoveCreateNestedManyWithoutGameInput
   }
 
   export type GameUncheckedCreateWithoutUsersInput = {
     id?: number
     uuid?: string
+    moves?: MoveUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GameCreateOrConnectWithoutUsersInput = {
     where: GameWhereUniqueInput
     create: XOR<GameCreateWithoutUsersInput, GameUncheckedCreateWithoutUsersInput>
+  }
+
+  export type MoveCreateWithoutUserInput = {
+    uuid?: string
+    game: GameCreateNestedOneWithoutMovesInput
+  }
+
+  export type MoveUncheckedCreateWithoutUserInput = {
+    id?: number
+    uuid?: string
+    gameId: number
+  }
+
+  export type MoveCreateOrConnectWithoutUserInput = {
+    where: MoveWhereUniqueInput
+    create: XOR<MoveCreateWithoutUserInput, MoveUncheckedCreateWithoutUserInput>
+  }
+
+  export type MoveCreateManyUserInputEnvelope = {
+    data: MoveCreateManyUserInput | MoveCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type GameUpsertWithWhereUniqueWithoutUsersInput = {
@@ -3731,18 +5307,67 @@ export namespace Prisma {
     uuid?: StringFilter<"Game"> | string
   }
 
+  export type MoveUpsertWithWhereUniqueWithoutUserInput = {
+    where: MoveWhereUniqueInput
+    update: XOR<MoveUpdateWithoutUserInput, MoveUncheckedUpdateWithoutUserInput>
+    create: XOR<MoveCreateWithoutUserInput, MoveUncheckedCreateWithoutUserInput>
+  }
+
+  export type MoveUpdateWithWhereUniqueWithoutUserInput = {
+    where: MoveWhereUniqueInput
+    data: XOR<MoveUpdateWithoutUserInput, MoveUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MoveUpdateManyWithWhereWithoutUserInput = {
+    where: MoveScalarWhereInput
+    data: XOR<MoveUpdateManyMutationInput, MoveUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MoveScalarWhereInput = {
+    AND?: MoveScalarWhereInput | MoveScalarWhereInput[]
+    OR?: MoveScalarWhereInput[]
+    NOT?: MoveScalarWhereInput | MoveScalarWhereInput[]
+    id?: IntFilter<"Move"> | number
+    uuid?: StringFilter<"Move"> | string
+    userId?: IntFilter<"Move"> | number
+    gameId?: IntFilter<"Move"> | number
+  }
+
   export type UserCreateWithoutGamesInput = {
     name: string
+    moves?: MoveCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGamesInput = {
     id?: number
     name: string
+    moves?: MoveUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGamesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutGamesInput, UserUncheckedCreateWithoutGamesInput>
+  }
+
+  export type MoveCreateWithoutGameInput = {
+    uuid?: string
+    user: UserCreateNestedOneWithoutMovesInput
+  }
+
+  export type MoveUncheckedCreateWithoutGameInput = {
+    id?: number
+    uuid?: string
+    userId: number
+  }
+
+  export type MoveCreateOrConnectWithoutGameInput = {
+    where: MoveWhereUniqueInput
+    create: XOR<MoveCreateWithoutGameInput, MoveUncheckedCreateWithoutGameInput>
+  }
+
+  export type MoveCreateManyGameInputEnvelope = {
+    data: MoveCreateManyGameInput | MoveCreateManyGameInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithWhereUniqueWithoutGamesInput = {
@@ -3769,13 +5394,113 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
   }
 
+  export type MoveUpsertWithWhereUniqueWithoutGameInput = {
+    where: MoveWhereUniqueInput
+    update: XOR<MoveUpdateWithoutGameInput, MoveUncheckedUpdateWithoutGameInput>
+    create: XOR<MoveCreateWithoutGameInput, MoveUncheckedCreateWithoutGameInput>
+  }
+
+  export type MoveUpdateWithWhereUniqueWithoutGameInput = {
+    where: MoveWhereUniqueInput
+    data: XOR<MoveUpdateWithoutGameInput, MoveUncheckedUpdateWithoutGameInput>
+  }
+
+  export type MoveUpdateManyWithWhereWithoutGameInput = {
+    where: MoveScalarWhereInput
+    data: XOR<MoveUpdateManyMutationInput, MoveUncheckedUpdateManyWithoutGameInput>
+  }
+
+  export type UserCreateWithoutMovesInput = {
+    name: string
+    games?: GameCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutMovesInput = {
+    id?: number
+    name: string
+    games?: GameUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutMovesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMovesInput, UserUncheckedCreateWithoutMovesInput>
+  }
+
+  export type GameCreateWithoutMovesInput = {
+    uuid?: string
+    users?: UserCreateNestedManyWithoutGamesInput
+  }
+
+  export type GameUncheckedCreateWithoutMovesInput = {
+    id?: number
+    uuid?: string
+    users?: UserUncheckedCreateNestedManyWithoutGamesInput
+  }
+
+  export type GameCreateOrConnectWithoutMovesInput = {
+    where: GameWhereUniqueInput
+    create: XOR<GameCreateWithoutMovesInput, GameUncheckedCreateWithoutMovesInput>
+  }
+
+  export type UserUpsertWithoutMovesInput = {
+    update: XOR<UserUpdateWithoutMovesInput, UserUncheckedUpdateWithoutMovesInput>
+    create: XOR<UserCreateWithoutMovesInput, UserUncheckedCreateWithoutMovesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMovesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMovesInput, UserUncheckedUpdateWithoutMovesInput>
+  }
+
+  export type UserUpdateWithoutMovesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    games?: GameUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMovesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    games?: GameUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type GameUpsertWithoutMovesInput = {
+    update: XOR<GameUpdateWithoutMovesInput, GameUncheckedUpdateWithoutMovesInput>
+    create: XOR<GameCreateWithoutMovesInput, GameUncheckedCreateWithoutMovesInput>
+    where?: GameWhereInput
+  }
+
+  export type GameUpdateToOneWithWhereWithoutMovesInput = {
+    where?: GameWhereInput
+    data: XOR<GameUpdateWithoutMovesInput, GameUncheckedUpdateWithoutMovesInput>
+  }
+
+  export type GameUpdateWithoutMovesInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    users?: UserUpdateManyWithoutGamesNestedInput
+  }
+
+  export type GameUncheckedUpdateWithoutMovesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    users?: UserUncheckedUpdateManyWithoutGamesNestedInput
+  }
+
+  export type MoveCreateManyUserInput = {
+    id?: number
+    uuid?: string
+    gameId: number
+  }
+
   export type GameUpdateWithoutUsersInput = {
     uuid?: StringFieldUpdateOperationsInput | string
+    moves?: MoveUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateWithoutUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
+    moves?: MoveUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateManyWithoutUsersInput = {
@@ -3783,18 +5508,60 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
   }
 
+  export type MoveUpdateWithoutUserInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    game?: GameUpdateOneRequiredWithoutMovesNestedInput
+  }
+
+  export type MoveUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    gameId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MoveUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    gameId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MoveCreateManyGameInput = {
+    id?: number
+    uuid?: string
+    userId: number
+  }
+
   export type UserUpdateWithoutGamesInput = {
     name?: StringFieldUpdateOperationsInput | string
+    moves?: MoveUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGamesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    moves?: MoveUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutGamesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MoveUpdateWithoutGameInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutMovesNestedInput
+  }
+
+  export type MoveUncheckedUpdateWithoutGameInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MoveUncheckedUpdateManyWithoutGameInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    uuid?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
 

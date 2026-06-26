@@ -130,6 +130,13 @@ exports.Prisma.GameScalarFieldEnum = {
   uuid: 'uuid'
 };
 
+exports.Prisma.MoveScalarFieldEnum = {
+  id: 'id',
+  uuid: 'uuid',
+  userId: 'userId',
+  gameId: 'gameId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -143,7 +150,8 @@ exports.Prisma.QueryMode = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Game: 'Game'
+  Game: 'Game',
+  Move: 'Move'
 };
 
 /**
