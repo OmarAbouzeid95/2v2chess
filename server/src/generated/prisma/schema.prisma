@@ -9,6 +9,13 @@ datasource db {
 }
 
 model User {
-  id   Int    @id @default(autoincrement())
-  name String
+  id    Int    @id @default(autoincrement())
+  name  String
+  games Game[]
+}
+
+model Game {
+  id    Int    @id @default(autoincrement())
+  uuid  String @unique @default(uuid())
+  users User[]
 }
