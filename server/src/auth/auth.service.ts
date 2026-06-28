@@ -12,7 +12,7 @@ export class AuthService {
   async generateToken(
     name: string,
     uuid: string,
-  ): Promise<{ access_token: string; refresh_token: string }> {
+  ): Promise<{ accessToken: string; refreshToken: string }> {
     const user = await this.userService.findByNameAndUuid(uuid, name);
 
     if (!user) {
@@ -21,8 +21,8 @@ export class AuthService {
 
     const payload = { name, uuid };
     return {
-      access_token: await this.jwtService.signAsync(payload),
-      refresh_token: await this.jwtService.signAsync(payload, {
+      accessToken: await this.jwtService.signAsync(payload),
+      refreshToken: await this.jwtService.signAsync(payload, {
         expiresIn: '7d',
       }),
     };

@@ -29,14 +29,14 @@ export class AuthController {
     @Body() generateTokenDto: GenerateTokenDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { access_token, refresh_token } =
+    const { accessToken, refreshToken } =
       await this.authService.generateToken(
         generateTokenDto.name,
         generateTokenDto.uuid,
       );
 
-    res.cookie('refresh_token', refresh_token, { httpOnly: true });
-    return { access_token, refresh_token };
+    res.cookie('refreshToken', refreshToken, { httpOnly: true });
+    return { accessToken, refreshToken };
   }
 
   @UseGuards(AuthGuard)
@@ -50,20 +50,20 @@ export class AuthController {
     @Request() req,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { refresh_token } = req.cookies;
+    const { refreshToken } = req.cookies;
 
-    if (!refresh_token) {
+    if (!refreshToken) {
       throw new UnauthorizedException('Refresh token not found');
     }
 
     try {
-      const payload = await this.jwtService.verifyAsync(refresh_token);
+      const payload = await this.jwtService.verifyAsync(refreshToken);
 
-      const { access_token, refresh_token: newRefreshToken } =
+      const { accessToken, refreshToken: newRefreshToken } =
         await this.authService.generateToken(payload.name, payload.uuid);
 
-      res.cookie('refresh_token', newRefreshToken, { httpOnly: true });
-      return { access_token, refresh_token: newRefreshToken };
+      res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
+      return { accessToken, refreshToken: newRefreshToken };
     } catch {
       throw new UnauthorizedException();
     }
