@@ -15,6 +15,7 @@ import { AuthService } from '@/auth/auth.service';
 import { GenerateTokenDto } from './dto/generate-token-dto';
 import { type Response } from 'express';
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
+import { Public } from './auth.metadata.config';
 
 @Controller('auth')
 export class AuthController {
@@ -23,17 +24,17 @@ export class AuthController {
     private readonly jwtService: JwtService,
   ) {}
 
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('generate-token')
   async generateToken(
     @Body() generateTokenDto: GenerateTokenDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { accessToken, refreshToken } =
-      await this.authService.generateToken(
-        generateTokenDto.name,
-        generateTokenDto.uuid,
-      );
+    const { accessToken, refreshToken } = await this.authService.generateToken(
+      generateTokenDto.name,
+      generateTokenDto.uuid,
+    );
 
     res.cookie('refreshToken', refreshToken, { httpOnly: true });
     return { accessToken, refreshToken };
@@ -45,6 +46,7 @@ export class AuthController {
     return 'successfully verified token';
   }
 
+  @Public()
   @Post('refresh-token')
   async refreshToken(
     @Request() req,
