@@ -6,11 +6,13 @@ import {
   HttpStatus,
   Post,
   Request,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@/auth/auth.guard';
 import { AuthService } from '@/auth/auth.service';
 import { GenerateTokenDto } from './dto/generate-token-dto';
+import { type Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -18,11 +20,18 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('generate-token')
-  generateToken(@Body() generateTokenDto: GenerateTokenDto) {
-    return this.authService.generateToken(
-      generateTokenDto.name,
-      generateTokenDto.uuid,
-    );
+  async generateToken(
+    @Body() generateTokenDto: GenerateTokenDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { access_token, refresh_token } =
+      await this.authService.generateToken(
+        generateTokenDto.name,
+        generateTokenDto.uuid,
+      );
+
+    res.cookie('refresh_token', refresh_token, { httpOnly: true });
+    return { access_token, refresh_token };
   }
 
   @UseGuards(AuthGuard)
