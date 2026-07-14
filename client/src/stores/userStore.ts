@@ -1,22 +1,23 @@
 import { create } from 'zustand';
 import type { User } from '@/types/models';
 
+// Client-owned session state only. Lists of users are server state and are
+// fetched via TanStack Query (see src/api/users.ts), not held here.
 interface UserState {
 	// The signed-in / active user.
 	currentUser: User | null;
-	// All users known to the client (e.g. players in a lobby).
-	users: User[];
+	// Access token for authenticated requests. Kept in memory (not persisted)
+	// and read by the axios interceptor in src/lib/api.ts.
+	accessToken: string | null;
 
 	setCurrentUser: (user: User | null) => void;
-	setUsers: (users: User[]) => void;
-	upsertUser: (user: User) => void;
-	removeUser: (id: number) => void;
+	setAccessToken: (token: string | null) => void;
 	reset: () => void;
 }
 
 const initialState = {
 	currentUser: null,
-	users: [] as User[],
+	accessToken: null,
 };
 
 export const useUserStore = create<UserState>((set) => ({
@@ -24,26 +25,7 @@ export const useUserStore = create<UserState>((set) => ({
 
 	setCurrentUser: (currentUser) => set({ currentUser }),
 
-	setUsers: (users) => set({ users }),
-
-	upsertUser: (user) =>
-		set((state) => {
-			const exists = state.users.some((u) => u.id === user.id);
-			return {
-				users: exists
-					? state.users.map((u) => (u.id === user.id ? user : u))
-					: [...state.users, user],
-				currentUser:
-					state.currentUser?.id === user.id ? user : state.currentUser,
-			};
-		}),
-
-	removeUser: (id) =>
-		set((state) => ({
-			users: state.users.filter((u) => u.id !== id),
-			currentUser:
-				state.currentUser?.id === id ? null : state.currentUser,
-		})),
+	setAccessToken: (accessToken) => set({ accessToken }),
 
 	reset: () => set(initialState),
 }));

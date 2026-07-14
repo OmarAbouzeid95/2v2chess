@@ -19,18 +19,15 @@ export interface GameSettings {
 	players: Record<PlayerSlot, string>;
 }
 
+// Client-owned state only. Lists of games are server state and are fetched via
+// TanStack Query (see src/api/games.ts), not held here.
 interface GameState {
 	// The game the client is currently in / viewing.
 	currentGame: Game | null;
-	// All games known to the client (e.g. a games list).
-	games: Game[];
 	// Settings for the game being configured before it starts.
 	settings: GameSettings;
 
 	setCurrentGame: (game: Game | null) => void;
-	setGames: (games: Game[]) => void;
-	upsertGame: (game: Game) => void;
-	removeGame: (id: number) => void;
 	// Replace the players of the current game.
 	setGamePlayers: (users: User[]) => void;
 
@@ -44,7 +41,6 @@ interface GameState {
 
 const initialState = {
 	currentGame: null,
-	games: [] as Game[],
 	settings: {
 		variant: 'team-alternating',
 		timeControl: 3,
@@ -61,27 +57,6 @@ export const useGameStore = create<GameState>((set) => ({
 	...initialState,
 
 	setCurrentGame: (currentGame) => set({ currentGame }),
-
-	setGames: (games) => set({ games }),
-
-	upsertGame: (game) =>
-		set((state) => {
-			const exists = state.games.some((g) => g.id === game.id);
-			return {
-				games: exists
-					? state.games.map((g) => (g.id === game.id ? game : g))
-					: [...state.games, game],
-				currentGame:
-					state.currentGame?.id === game.id ? game : state.currentGame,
-			};
-		}),
-
-	removeGame: (id) =>
-		set((state) => ({
-			games: state.games.filter((g) => g.id !== id),
-			currentGame:
-				state.currentGame?.id === id ? null : state.currentGame,
-		})),
 
 	setGamePlayers: (users) =>
 		set((state) =>

@@ -55,8 +55,8 @@ export default function GameSettings() {
 							Team Alternating
 						</p>
 						<CardDescription className='mt-0.5'>
-							Order of play: W1 → B1 → W2 → B2. Partners share a
-							side but move one at a time.
+							Order of play: W1 → B1 → W2 → B2. Partners share a side but move
+							one at a time.
 						</CardDescription>
 					</div>
 				</div>
@@ -85,9 +85,7 @@ export default function GameSettings() {
 								<SlotBadge label={label} dark={dark} />
 								<Input
 									value={settings.players[slot]}
-									onChange={(e) =>
-										setPlayerName(slot, e.target.value)
-									}
+									onChange={(e) => setPlayerName(slot, e.target.value)}
 									placeholder={`Player ${index + 1}`}
 									className='flex-1'
 								/>
